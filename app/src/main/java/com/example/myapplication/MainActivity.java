@@ -12,26 +12,26 @@ import android.widget.Button;
 import android.widget.TextView;
 import java.util.Random;
 public class MainActivity extends AppCompatActivity {
-    //Рандома
-protected Random enemiesrnd = new Random();
+
+protected Random rnd = new Random();
 protected Integer enemiescounter;
 protected Integer enemiesnumber = 25;
 protected TextView counter;
-Intent intent;
-//Bundle args = getIntent().getExtras();
+public Intent intent;
 protected Integer strikenumber = 5;
-protected Random strikernd = new Random();
 protected TextView timerView;
-protected Integer mlseconds = 1000;
+protected Integer mlseconds = 10000;
 protected String winordefeat = "Поражение";
 protected boolean start = false;
+protected boolean winstate = false;
 
-Integer money = (mlseconds/100)*enemiesnumber;
+
+Integer money;
 //Метод таймер
-    public CountDownTimer timer = new CountDownTimer(10000, 1) {
+    public CountDownTimer timer = new CountDownTimer(mlseconds, 1000) {
         @Override
         public void onTick(long miliseconds) {
-            timerView.setText(""+miliseconds/mlseconds);
+            timerView.setText(""+miliseconds/1000);
         }
 
         @Override
@@ -45,42 +45,48 @@ Integer money = (mlseconds/100)*enemiesnumber;
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         intent = new Intent(this, HubscreenActivity.class);
-        strikenumber = intent.getIntExtra("strikenumber", 5);
-        enemiesnumber = intent.getIntExtra("enemiesnumber", 25);
-        mlseconds = intent.getIntExtra("time", 1000);
+        Bundle args = intent.getExtras();
+        this.strikenumber = args.getInt("strike_number", 5);
+        this.enemiesnumber = args.getInt("enemies_number", 25);
+        this.mlseconds = args.getInt("time", 10000);
+        this.money = args.getInt("money", 0);
         setEnemies();
         timerView = findViewById(R.id.textView2);
-
     }
     //Метод для объявления количества захватчиков (рандомно)
     protected void setEnemies(){
-        counter = findViewById(R.id.textView);
-        enemiescounter = enemiesrnd.nextInt(enemiesnumber);
-        counter.setText(Integer.toString(enemiescounter));
+        this.counter = findViewById(R.id.textView);
+        this.enemiescounter = this.rnd.nextInt(this.enemiesnumber);
+        this.counter.setText(Integer.toString(this.enemiescounter));
     }
     //Метод для избавления от захватчиков
     public void toKill(View view){
         if (this.start == true){
-            if (enemiescounter > 0){
-                enemiescounter=enemiescounter-strikernd.nextInt(strikenumber);
-                counter.setText(Integer.toString(enemiescounter));
-                winordefeat = "Поражение";
+            if (this.enemiescounter > 0){
+                this.enemiescounter=this.enemiescounter-this.rnd.nextInt(this.strikenumber);
+                this.counter.setText(Integer.toString(enemiescounter));
+                this.winordefeat = "Поражение";
+                this.winstate = false;
             }
-            if (enemiescounter <= 0){
-                enemiescounter = 0;
-                counter.setText(Integer.toString(enemiescounter));
-                //this.intent.putExtra("strikenumber", strikenumber);
-                timer.cancel();
-                winordefeat = "Победа!";
-                timer.onFinish();
-                //startActivity(intent);
+            if (this.enemiescounter <= 0){
+                this.enemiescounter = 0;
+                this.counter.setText(Integer.toString(this.enemiescounter));
+                this.intent.putExtra("strike_number", this.strikenumber);
+                this.intent.putExtra("enemies_number", this.enemiesnumber);
+                this.intent.putExtra("time", this.mlseconds);
+                this.intent.putExtra("win_state", this.winstate);
+                this.timer.cancel();
+                this.winordefeat = "Победа!";
+                this.winstate = true;
+                this.timer.onFinish();
+                startActivity(this.intent);
             }
         }
     }
     //Метод для старта таймер
     public void onStartTimer(View view){
-        timer.start();
-        timer.onFinish();
+        this.timer.start();
+        this.timer.onFinish();
         Button button = (Button)findViewById(R.id.startbutton);
         button.setEnabled(false);
         this.start = true;

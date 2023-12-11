@@ -17,6 +17,7 @@
         android:backgroundTint="@color/lightred"
         android:fontFamily="sans-serif-black"
         android:text="Начать заново"
+        android:onClick="onClickRestart"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,6 +32,7 @@
         android:backgroundTint="@color/green"
         android:fontFamily="sans-serif-black"
         android:text="Следующий уровень"
+        android:onClick="onNextLevel"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -66,10 +68,9 @@
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.334" />
+        app:layout_constraintVertical_bias="0.388" />
 
     <TextView
         android:id="@+id/moneycount_TextView"
@@ -80,8 +81,11 @@
         android:textAlignment="textEnd"
         android:textColor="@color/white"
         android:textSize="34sp"
-        tools:layout_editor_absoluteX="259dp"
-        tools:layout_editor_absoluteY="128dp" />
+        app:layout_constraintBottom_toTopOf="@+id/button_upgrade1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.956"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/moneycount_TextView2"
@@ -91,6 +95,9 @@
         android:text="Количество денег"
         android:textColor="@color/white"
         android:textSize="34sp"
-        tools:layout_editor_absoluteX="12dp"
-        tools:layout_editor_absoluteY="83dp" />
+        app:layout_constraintBottom_toTopOf="@+id/moneycount_TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>
