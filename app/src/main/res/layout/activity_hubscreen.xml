@@ -4,32 +4,93 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/darkpurple"
     tools:context=".HubscreenActivity">
 
     <Button
         android:id="@+id/button_restart"
-        android:layout_width="170dp"
-        android:layout_height="54dp"
+        android:layout_width="267dp"
+        android:layout_height="87dp"
         android:layout_marginStart="160dp"
-        android:layout_marginTop="413dp"
+        android:layout_marginTop="540dp"
         android:layout_marginEnd="160dp"
-        android:layout_marginBottom="271dp"
+        android:backgroundTint="@color/lightred"
+        android:fontFamily="sans-serif-black"
         android:text="Начать заново"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button_nextlevel"
-        android:layout_width="230dp"
-        android:layout_height="74dp"
+        android:layout_width="269dp"
+        android:layout_height="88dp"
         android:layout_marginStart="160dp"
         android:layout_marginEnd="160dp"
+        android:backgroundTint="@color/green"
+        android:fontFamily="sans-serif-black"
         android:text="Следующий уровень"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.592" />
+
+    <Button
+        android:id="@+id/button_upgrade1"
+        android:layout_width="351dp"
+        android:layout_height="77dp"
+        android:layout_marginStart="160dp"
+        android:layout_marginEnd="160dp"
+        android:fontFamily="sans-serif-black"
+        android:text="Улучшение оружия (400)"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.239" />
+
+    <Button
+        android:id="@+id/button_upgrade2"
+        android:layout_width="347dp"
+        android:layout_height="78dp"
+        android:layout_marginStart="160dp"
+        android:layout_marginEnd="160dp"
+        android:fontFamily="sans-serif-black"
+        android:text="Улучшение корабля (1000)"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.334" />
+
+    <TextView
+        android:id="@+id/moneycount_TextView"
+        android:layout_width="120dp"
+        android:layout_height="45dp"
+        android:fontFamily="sans-serif-black"
+        android:text="0"
+        android:textAlignment="textEnd"
+        android:textColor="@color/white"
+        android:textSize="34sp"
+        tools:layout_editor_absoluteX="259dp"
+        tools:layout_editor_absoluteY="128dp" />
+
+    <TextView
+        android:id="@+id/moneycount_TextView2"
+        android:layout_width="369dp"
+        android:layout_height="45dp"
+        android:fontFamily="sans-serif-black"
+        android:text="Количество денег"
+        android:textColor="@color/white"
+        android:textSize="34sp"
+        tools:layout_editor_absoluteX="12dp"
+        tools:layout_editor_absoluteY="83dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
