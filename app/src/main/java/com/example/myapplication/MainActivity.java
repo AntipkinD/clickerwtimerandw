@@ -24,9 +24,10 @@ protected Integer mlseconds = 10000;
 protected String winordefeat = "Поражение";
 protected boolean start = false;
 protected boolean winstate = false;
+protected Integer money = 0;
+protected Bundle args;
 
 
-Integer money;
 //Метод таймер
     public CountDownTimer timer = new CountDownTimer(mlseconds, 1000) {
         @Override
@@ -37,6 +38,7 @@ Integer money;
         @Override
         public void onFinish() {
             timerView.setText(winordefeat);
+
         }
     };
     @Override
@@ -45,11 +47,13 @@ Integer money;
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         intent = new Intent(this, HubscreenActivity.class);
-        Bundle args = intent.getExtras();
-        this.strikenumber = args.getInt("strike_number", 5);
-        this.enemiesnumber = args.getInt("enemies_number", 25);
-        this.mlseconds = args.getInt("time", 10000);
-        this.money = args.getInt("money", 0);
+        this.args = getIntent().getExtras();
+        if (this.args != null){
+            this.strikenumber = this.args.getInt("strike_number", 5);
+            this.enemiesnumber = this.args.getInt("enemies_number", 25);
+            this.mlseconds = this.args.getInt("time", 10000);
+            this.money = this.args.getInt("money", 0);
+        }
         setEnemies();
         timerView = findViewById(R.id.textView2);
     }
@@ -64,11 +68,12 @@ Integer money;
         if (this.start == true){
             if (this.enemiescounter > 0){
                 this.enemiescounter=this.enemiescounter-this.rnd.nextInt(this.strikenumber);
-                this.counter.setText(Integer.toString(enemiescounter));
+                this.counter.setText(Integer.toString(this.enemiescounter));
                 this.winordefeat = "Поражение";
                 this.winstate = false;
             }
             if (this.enemiescounter <= 0){
+                this.winstate = true;
                 this.enemiescounter = 0;
                 this.counter.setText(Integer.toString(this.enemiescounter));
                 this.intent.putExtra("strike_number", this.strikenumber);
@@ -77,7 +82,6 @@ Integer money;
                 this.intent.putExtra("win_state", this.winstate);
                 this.timer.cancel();
                 this.winordefeat = "Победа!";
-                this.winstate = true;
                 this.timer.onFinish();
                 startActivity(this.intent);
             }
