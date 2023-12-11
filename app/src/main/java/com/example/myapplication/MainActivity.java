@@ -18,7 +18,7 @@ protected Integer enemiescounter;
 protected Integer enemiesnumber = 25;
 protected TextView counter;
 public Intent intent;
-protected Integer strikenumber = 5;
+protected Integer strikenumber = 3;
 protected TextView timerView;
 protected Integer mlseconds = 10000;
 protected String winordefeat = "Поражение";
@@ -33,10 +33,10 @@ protected Bundle args;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        intent = new Intent(this, HubscreenActivity.class);
+        this.intent = new Intent(this, HubscreenActivity.class);
         this.args = getIntent().getExtras();
         if (this.args != null){
-            this.strikenumber = this.args.getInt("strike_number", 5);
+            this.strikenumber = this.args.getInt("strike_number", 3);
             this.enemiesnumber = this.args.getInt("enemies_number", 25);
             this.mlseconds = this.args.getInt("time", 10000);
             this.money = this.args.getInt("money", 0);
@@ -45,7 +45,7 @@ protected Bundle args;
         timerView = findViewById(R.id.textView2);
     }
     //Метод таймер
-    public CountDownTimer timer = new CountDownTimer(mlseconds, 1000) {
+    public CountDownTimer timer = new CountDownTimer(this.mlseconds, 1000) {
         @Override
         public void onTick(long miliseconds) {
             timerView.setText(""+miliseconds/1000);
@@ -69,6 +69,7 @@ protected Bundle args;
         if (this.start == true){
             if (this.enemiescounter > 0){
                 this.winstate = false;
+                if (this.finish == false)
                 this.enemiescounter=this.enemiescounter-this.rnd.nextInt(this.strikenumber);
                 this.counter.setText(Integer.toString(this.enemiescounter));
                 this.winordefeat = "Поражение";
@@ -88,7 +89,7 @@ protected Bundle args;
                 this.counter.setText(Integer.toString(this.enemiescounter));
                 this.timer.cancel();
                 this.winordefeat = "Победа!";
-                this.timer.onFinish();
+                this.finish = true;
                 if (this.finish == true){
                     this.intent.putExtra("strike_number", this.strikenumber);
                     this.intent.putExtra("enemies_number", this.enemiesnumber);

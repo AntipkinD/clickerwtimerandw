@@ -33,14 +33,14 @@ public class HubscreenActivity extends AppCompatActivity {
         this.intent = new Intent(this, MainActivity.class);
         this.args = getIntent().getExtras();
         if (this.args != null){
-            this.strikenumber = this.args.getInt("strike_number", 5);
+            this.strikenumber = this.args.getInt("strike_number", 3);
             this.time = this.args.getInt("time", 10000);
             this.winstate = this.args.getBoolean("win_state", winstate);
+            this.enemiesnumber = this.args.getInt("enemies_number", 25);
             if (winstate == true){
-                this.money = this.args.getInt("money", 0)+(this.time/1000)*this.strikenumber;
+                this.money = this.args.getInt("money", 0)+(this.time/1000)*this.enemiesnumber/2;
             }
             else this.money = this.args.getInt("money", 0);
-            this.enemiesnumber = this.args.getInt("enemies_number", 25);
         }
         this.money_counter.setText(this.money.toString());
         if (this.winstate == false){
@@ -48,20 +48,21 @@ public class HubscreenActivity extends AppCompatActivity {
         }
         if (this.winstate == true){
             next_lvl.setEnabled(true);
+            this.enemiesnumber+=strikenumber;
         }
     }
     public void onClickRestart(View view){
         this.intent.putExtra("strike_number", this.strikenumber);
         this.intent.putExtra("time", this.time);
         this.intent.putExtra("money", this.money);
-        this.intent.putExtra("enemies_counter", this.enemiesnumber);
+        this.intent.putExtra("enemies_number", this.enemiesnumber);
         startActivity(this.intent);
     }
     public void onNextLevel(View view){
         this.intent.putExtra("strike_number", this.strikenumber);
         this.intent.putExtra("time", this.time);
         this.intent.putExtra("money", this.money);
-        this.intent.putExtra("enemies_counter", this.enemiesnumber);
+        this.intent.putExtra("enemies_number", this.enemiesnumber);
         startActivity(this.intent);
     }
     public void onUpgrade1(View view){
@@ -74,7 +75,7 @@ public class HubscreenActivity extends AppCompatActivity {
     public void onUpgrade2(View view){
         if (this.money >= 1000) {
             this.money -= 1000;
-            this.time += 100;
+            this.time *= 100;
             this.money_counter.setText(this.money.toString());
         }
     }
